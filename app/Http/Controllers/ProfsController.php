@@ -1,26 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Prof;
 
-use App\Http\Requests\CreateEtudiantValidationRequest;
-use App\Models\Etudiant;
-
+use App\Http\Requests\CreateProfValidationReques;
 use Illuminate\Http\Request;
 
-class EtudiantsController extends Controller
+class ProfsController extends Controller
 {
     public function index(){
-        $data = Etudiant::all();
-        return view('etudiants', ['data'=>$data]);
+        // $data = prof::all();
+        // return view('profs', ['data'=>$data]);
+        return view('profs');
     }
     public function create(){
         
-        return view('enroll');
+        return view('ajouterProf');
     }
-    public function store(CreateEtudiantValidationRequest $request)
+    public function store(CreateProfValidationReques $request)
     
 {
-    $exists = Etudiant::where('nom', $request->nom)
+    $exists = Prof::where('nom', $request->nom)
         ->where('prenom', $request->prenom)
         ->where('date_naissance', $request->date_naissance)
         ->where('sexe', $request->sexe)
@@ -37,34 +37,34 @@ class EtudiantsController extends Controller
     $data = $request->validated();
 
     // إنشاء نموذج جديد
-    $etudiant = new Etudiant();
+    $prof = new Prof();
     
     // Informations de l’élève
-    $etudiant->nom            = $data['nom'];
-    $etudiant->prenom         = $data['prenom'];
-    $etudiant->date_naissance = $data['date_naissance'];
-    $etudiant->sexe           = $data['sexe'];
-    $etudiant->niveau         = $data['niveau'];
+    $prof->nom            = $data['nom'];
+    $prof->prenom         = $data['prenom'];
+    $prof->date_naissance = $data['date_naissance'];
+    $prof->sexe           = $data['sexe'];
+    $prof->niveau         = $data['niveau'];
 
     // Informations du parent
-    $etudiant->parent_nom     = $data['parent_nom'];
-    $etudiant->telephone      = $data['telephone'];
-    $etudiant->email          = $data['email'] ?? null;
-    $etudiant->adresse        = $data['adresse'] ?? null;
+    $prof->parent_nom     = $data['parent_nom'];
+    $prof->telephone      = $data['telephone'];
+    $prof->email          = $data['email'] ?? null;
+    $prof->adresse        = $data['adresse'] ?? null;
 
     // Informations d’inscription
-    $etudiant->annee_scolaire = $data['annee_scolaire'];
+    $prof->annee_scolaire = $data['annee_scolaire'];
 
-    // Gestion du document/photo
+    // Gestion ducdocument/photo
     if ($request->hasFile('document')) {
         $file = $request->file('document');
         $filename = time().'_'.$file->getClientOriginalName();
         $path = $file->storeAs('documents', $filename, 'public');
-        $etudiant->document_path = $path;
+        $prof->document_path = $path;
     }
 
     // Sauvegarder l'étudiant
-    $etudiant->save();
+    $prof->save();
 
     // Redirection avec message de succès
     return back()->with('success', 'Étudiant ajouté avec succès !');
@@ -73,5 +73,4 @@ class EtudiantsController extends Controller
         
         return view('enroll');
     }
-    
 }

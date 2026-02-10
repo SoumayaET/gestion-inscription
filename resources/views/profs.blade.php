@@ -7,15 +7,16 @@
 @endsection
 
 <!-- End Page Title -->
+<a href="{{route('profs.create')}}">ajouter un prof</a>
   <main class="main">
 
     
 
     <!-- Instructors Section -->
     <section id="instructors" class="instructors section">
-
+      
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
+        
         <div class="row gy-4">
 
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">

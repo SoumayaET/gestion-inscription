@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateEtudiantValidationRequest;
-use App\Models\Etudiant;
+use App\Http\Requests\CreateCourValidationReques;
+use App\Models\Cour;
 
 use Illuminate\Http\Request;
 
-class EtudiantsController extends Controller
+class CoursController extends Controller
 {
     public function index(){
-        $data = Etudiant::all();
-        return view('etudiants', ['data'=>$data]);
+        // $data = Cour::all();
+        // return view('cours', ['data'=>$data]);
+        return view('cours');
     }
     public function create(){
         
-        return view('enroll');
+        return view('ajouterCour');
     }
-    public function store(CreateEtudiantValidationRequest $request)
+    public function store(CreateCourValidationReques $request)
     
 {
-    $exists = Etudiant::where('nom', $request->nom)
+    $exists = Cour::where('nom', $request->nom)
         ->where('prenom', $request->prenom)
         ->where('date_naissance', $request->date_naissance)
         ->where('sexe', $request->sexe)
@@ -37,34 +38,34 @@ class EtudiantsController extends Controller
     $data = $request->validated();
 
     // إنشاء نموذج جديد
-    $etudiant = new Etudiant();
+    $cour = new Cour();
     
     // Informations de l’élève
-    $etudiant->nom            = $data['nom'];
-    $etudiant->prenom         = $data['prenom'];
-    $etudiant->date_naissance = $data['date_naissance'];
-    $etudiant->sexe           = $data['sexe'];
-    $etudiant->niveau         = $data['niveau'];
+    $cour->nom            = $data['nom'];
+    $cour->prenom         = $data['prenom'];
+    $cour->date_naissance = $data['date_naissance'];
+    $cour->sexe           = $data['sexe'];
+    $cour->niveau         = $data['niveau'];
 
     // Informations du parent
-    $etudiant->parent_nom     = $data['parent_nom'];
-    $etudiant->telephone      = $data['telephone'];
-    $etudiant->email          = $data['email'] ?? null;
-    $etudiant->adresse        = $data['adresse'] ?? null;
+    $cour->parent_nom     = $data['parent_nom'];
+    $cour->telephone      = $data['telephone'];
+    $cour->email          = $data['email'] ?? null;
+    $cour->adresse        = $data['adresse'] ?? null;
 
     // Informations d’inscription
-    $etudiant->annee_scolaire = $data['annee_scolaire'];
+    $cour->annee_scolaire = $data['annee_scolaire'];
 
-    // Gestion du document/photo
+    // Gestion ducdocument/photo
     if ($request->hasFile('document')) {
         $file = $request->file('document');
         $filename = time().'_'.$file->getClientOriginalName();
         $path = $file->storeAs('documents', $filename, 'public');
-        $etudiant->document_path = $path;
+        $cour->document_path = $path;
     }
 
     // Sauvegarder l'étudiant
-    $etudiant->save();
+    $cour->save();
 
     // Redirection avec message de succès
     return back()->with('success', 'Étudiant ajouté avec succès !');

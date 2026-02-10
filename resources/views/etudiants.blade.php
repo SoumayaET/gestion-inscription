@@ -10,10 +10,10 @@
   <section id="students" class="instructors section">
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       
-      
+      <a href="{{route('etudiants.create')}}">ajouter un etudiant</a>
       <div class="row gy-4">
         
-          
+        
         
         @isset($data)
         @if(!$data->isEmpty())
@@ -73,8 +73,8 @@
                 </div>
 
                 <div class="action-buttons mt-2">
-                  <a href="{{route('etudians.edit')}}">modifier</a>
-                  <a href="{{route('etudians.delete')}}">supperimer</a>
+                  <a class="btn-view">modifier</a>
+                  <a class="btn-view">supperimer</a>
                 </div>
               </form>
             </div>
