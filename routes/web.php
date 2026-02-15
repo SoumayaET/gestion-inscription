@@ -1,78 +1,116 @@
 <?php
 
-use App\Http\Controllers\CoursController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CoursController;
 use App\Http\Controllers\EtudiantsController;
 use App\Http\Controllers\ProfsController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfController;
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
- Route::get('/', function () {
-     return view('home');
- })->name('home');
- Route::get('/aboutPage', function () {
-     return view('about');
- })->name('about');
- Route::get('/404Page', function () {
-     return view('404');
- })->name('404');
- Route::get('/contactPage', function () {
-     return view('contact');
- })->name('contact');
- Route::get('/cours', function () {
-     return view('cours');
- })->name('cours.index');
-Route::get('/etudiants', function () {
-     return view('etudiants');
- })->name('etudians.index');
-
- Route::get('/profs', function () {
-     return view('profs');
- })->name('profs.index');
-//  Route::get('/instructor-profilePage', function () {
-//      return view('instructor-profile');
-//  })->name('instructor-profile');
-//  Route::get('/starter-pagePage', function () {
-//      return view('starter-page');
-//  })->name('starter');
-//  Route::get('/termsPage', function () {
-//      return view('terms');
-//  });
-
-//  Route::get('/pricingPage', function () {
-//      return view('pricing');
-//  })->name('pricing');
- Route::get('/enrollPage', function () {
-     return view('enroll');
- })->name('enroll');
+use App\Http\Controllers\mesCoursController;
 
 
- // pour inscription - Etudiatn
- 
- Route::get('/etudiants', [EtudiantsController::class,'index'])->name('etudians.index');
- Route::get('/create_etudiants', [EtudiantsController::class,'create'])->name('etudians.create');
- Route::post('/store_etudiants', [EtudiantsController::class,'store'])->name('etudians.store');
- Route::get('/delete_etudiants', [EtudiantsController::class,'delete'])->name('etudians.delete');
- Route::post('/edit', [EtudiantsController::class,'edit'])->name('etudians.edit');
- Route::post('/edit', [EtudiantsController::class,'edit'])->name('etudians.edit');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
-  // pour Cours
- 
- Route::get('/cours', [CoursController::class,'index'])->name('cours.index');
- Route::get('/create_cours', [CoursController::class,'create'])->name('cours.create');
- Route::post('/store_cours', [CoursController::class,'store'])->name('cours.store');
- Route::get('/delete_cours', [CoursController::class,'delete'])->name('cours.delete');
- Route::post('/edit', [CoursController::class,'edit'])->name('cours.edit');
- Route::post('/edit', [CoursController::class,'edit'])->name('cours.edit');
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
 
-   // pour Profs
- 
- Route::get('/profs', [ProfsController::class,'index'])->name('profs.index');
- Route::get('/create_profs', [ProfsController::class,'create'])->name('profs.create');
- Route::post('/store_profs', [ProfsController::class,'store'])->name('profs.store');
- Route::get('/delete_profs', [ProfsController::class,'delete'])->name('profs.delete');
- Route::post('/edit', [ProfsController::class,'edit'])->name('profs.edit');
- Route::post('/edit', [ProfsController::class,'edit'])->name('profs.edit');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
- 
+Route::get('/enroll', function () {
+    return view('enroll');
+})->name('enroll');
+
+Route::get('/', function () {
+    return view('homePage');
+})->name('homePage');
+
+
+
+// ---------------------- Etudiants ----------------------
+Route::get('/etudiants', [EtudiantsController::class,'index'])->name('etudiants.index');
+Route::get('/etudiants/create', [EtudiantsController::class,'create'])
+    ->middleware(['auth', 'role:admin,etudiant'])
+    ->name('etudiants.create');
+Route::post('/etudiants', [EtudiantsController::class,'store'])->name('etudiants.store');
+Route::get('/etudiant/{id}', [EtudiantsController::class,'destroy'])->name('etudiants.destroy');
+Route::get('/etudiant/{id}/edit', [EtudiantsController::class,'edit'])->name('etudiants.edit');
+Route::post('/etudiant/{id}', [EtudiantsController::class,'update'])->name('etudiants.update');
+Route::get('/etudiant/{id}/details', [EtudiantsController::class,'details'])->name('etudiants.details');
+
+// ---------------------- Cours ----------------------
+Route::get('/cours', [CoursController::class,'index'])->name('cours.index');
+Route::get('/cours/create', [CoursController::class,'create'])->name('cours.create');
+Route::post('/cours', [CoursController::class,'store'])->name('cours.store');
+Route::get('/cour/{id}', [CoursController::class,'destroy'])->name('cours.destroy');
+Route::get('/cour/{id}/edit', [CoursController::class,'edit'])->name('cours.edit');
+Route::post('/cour/{id}', [CoursController::class,'update'])->name('cours.update');
+Route::get('/cour/{id}/details', [CoursController::class,'details'])->name('cours.details');
+
+// ---------------------- Profs ----------------------
+Route::get('/professeurs', [ProfsController::class,'index'])->name('profs.index');
+Route::get('/professeurs/create', [ProfsController::class, 'create'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('profs.create');
+
+Route::post('/professeurs', [ProfsController::class,'store'])->name('profs.store');
+Route::get('/professeur/{id}', [ProfsController::class,'destroy'])->name('profs.destroy');
+Route::get('/professeur/{id}/edit', [ProfsController::class,'edit'])->name('profs.edit');
+Route::post('/professeur/{id}', [ProfsController::class,'update'])->name('profs.update');
+Route::get('/professeur/{id}/details', [ProfsController::class,'details'])->name('profs.details');
+
+// ---------------------- Dashboards ----------------------
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::middleware(['auth', 'role:professeur'])->group(function () {
+    Route::get('/professeur/dashboard', [ProfsController::class, 'index'])->name('professeur.dashboard');
+});
+
+Route::middleware(['auth', 'role:etudiant'])->group(function () {
+    Route::get('/etudiant/dashboard', [EtudiantsController::class, 'index'])->name('etudiant.dashboard');
+});
+
+// ---------------------- Auth ----------------------
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+// معالجة تسجيل الدخول (POST)
+Route::post('/login', [LoginController::class, 'login']);
+
+// صفحة التسجيل (عرض الفورم)
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+// معالجة التسجيل (POST)
+Route::post('/register', [RegisterController::class, 'register']);
+
+
+
+
+// تسجيل الخروج
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect()->route('homePage');
+})->name('logout');
+
+
+//////////////////
+Route::get('/mes-cours', [mesCoursController::class, 'index'])
+    ->middleware(['auth', 'role:professeur'])
+    ->name('cours.index');
+
+// صفحات عامة

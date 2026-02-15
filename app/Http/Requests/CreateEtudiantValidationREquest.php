@@ -19,26 +19,27 @@ class CreateEtudiantValidationRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
-    {
-        return [
-            // Informations de l’élève
-            'nom'            => 'required|string|max:255',
-            'prenom'         => 'required|string|max:255',
-            'date_naissance' => 'required|date',
-            'sexe'           => 'required|in:Masculin,Féminin',
-            'niveau'         => 'required|in:Maternelle,Primaire,Collège,Lycée',
+    public function rules()
+{
+    return [
+        'nom' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'date_naissance' => 'required|date',
+        'sexe' => 'required|in:Masculin,Féminin',
+        'niveau' => 'required|string|max:255',
+        'parent_nom' => 'required|string|max:255',
+        'telephone' => 'required|string|max:255',
+        'email' => 'nullable|email|max:255',
+        'adresse' => 'nullable|string',
 
-            // Informations du parent
-            'parent_nom'     => 'required|string|max:255',
-            'telephone'      => 'required|string|max:20',
-            'email'          => 'nullable|email',
-            'adresse'        => 'nullable|string',
+        // 👇 مهم جداً
+        'annee_scolaire' => 'nullable|string|max:255',
+         'document_path'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
 
-            // Informations d’inscription
-            'annee_scolaire' => 'required|string',
+        
         ];
-    }
+}
+
 
     /**
      * Custom error messages

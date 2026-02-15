@@ -1,14 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use App\Http\Requests\CreateEtudiantValidationRequest;
+use App\Models\Cour;
 use App\Models\Etudiant;
 
 use Illuminate\Http\Request;
 
 class EtudiantsController extends Controller
 {
+    public function __construct()
+{
+    // المدير والأستاذ يمكنهم رؤية القائمة والتعديل والحذف
+    $this->middleware(['auth', 'role:admin,professeur'])->only(['index','destroy','edit','update']);
+    
+    // الطالب و المدير يمكنهم إضافة طالب جديد ورؤية التفاصيل
+    $this->middleware(['auth', 'role:admin,etudiant'])->only(['create','store','details']);
+}
+
+
+
     public function index(){
         $data = Etudiant::all();
         return view('etudiants', ['data'=>$data]);
@@ -54,24 +66,90 @@ class EtudiantsController extends Controller
 
     // Informations d’inscription
     $etudiant->annee_scolaire = $data['annee_scolaire'];
+    
+    if ($request->hasFile('document_path')) {
+        $file = $request->file('document_path');
+        $filename = time() . '_' . Str::random(5) . '.' . $file->extension();
+
+        // يخزن في storage/app/public/etudiants
+        $file->storeAs('etudiants', $filename, 'public');
+
+        // حفظ المسار النسبي في DB
+        $etudiant->document_path = 'etudiants/' . $filename;
+    }
 
     // Gestion du document/photo
-    if ($request->hasFile('document')) {
-        $file = $request->file('document');
-        $filename = time().'_'.$file->getClientOriginalName();
-        $path = $file->storeAs('documents', $filename, 'public');
-        $etudiant->document_path = $path;
-    }
+    // if ($request->hasFile('document')) {
+    //     $file = $request->file('document');
+    //     $filename = time().'_'.$file->getClientOriginalName();
+    //     $path = $file->storeAs('documents', $filename, 'public');
+    //     $etudiant->document_path = $path;
+    // }
 
     // Sauvegarder l'étudiant
     $etudiant->save();
 
     // Redirection avec message de succès
-    return back()->with('success', 'Étudiant ajouté avec succès !');
+    return redirect()->route('etudiants.index')->with('success', 'Étudiant ajouté avec succès !');
 }
-    public function edit(){
-        
-        return view('enroll');
+    public function edit($id)
+        {
+            $data = Etudiant::find($id);
+
+            if (!$data) {
+                return redirect()->route('etudiants.index')
+                    ->with('error', 'Étudiant introuvable.');
+            }
+
+            return view('modifierEtudiant', ['data'=>$data]);
+        }
+
+        public function update($id, CreateEtudiantValidationRequest $request)
+{
+    $etudiant = Etudiant::find($id);
+
+    if (!$etudiant) {
+        return redirect()->route('etudiants.index')
+            ->with('error', 'Étudiant introuvable.');
     }
-    
+
+    // نأخذ البيانات validated
+    $data = $request->validated();
+
+    // إذا لم يتم إرسال annee_scolaire نحافظ على القديمة
+    if (!isset($data['annee_scolaire'])) {
+        $data['annee_scolaire'] = $etudiant->annee_scolaire;
+    }
+
+    $etudiant->update($data);
+
+    return redirect()->route('etudiants.index')
+        ->with('success', 'Étudiant modifié avec succès !');
+}
+public function destroy($id)
+{
+    $dataEtud = Etudiant::find($id);
+
+    if (!$dataEtud) {
+        return redirect()->route('etudiants.index')
+            ->with('error', 'Étudiant introuvable.');
+    }
+
+    $dataEtud->delete();
+
+    return redirect()->route('etudiants.index')
+        ->with('success', 'Étudiant supprimé avec succès !');
+}
+    public function details($id)
+{
+    // جلب الطالب المرتبط بالمستخدم الحالي
+    $etudiant = Etudiant::where('user_id', $id)->first();
+
+    if (!$etudiant) {
+        return redirect()->route('etudiants.index')
+            ->with('error', 'Étudiant introuvable.');
+    }
+
+    return view('etudiantDetails', compact('etudiant'));
+}
 }

@@ -1,13 +1,12 @@
-@extends('pagePrincipale')
-@section('contenu')
+@extends('layouts.app')
 
-<!-- Page Title -->
 @section('PageTitle')
   <li class="current">Enroll</li>
 @endsection
-<!-- End Page Title -->
 
-  <main class="main">
+@section('contenu')
+
+<main class="main">
 
     <!-- Enroll Section -->
     <section id="enroll" class="enroll section">
@@ -33,7 +32,7 @@
                 <p>Take the next step in your educational journey. Complete the form below to secure your spot in our comprehensive online learning program.</p>
               </div>
 
-              <form class="enrollment-form" action="{{route('etudians.store')}}" method="POST" action="#" data-aos="fade-up" data-aos-delay="300" >
+              <form class="enrollment-form" action="{{route('etudiants.store')}}" enctype="multipart/form-data" method="POST"  data-aos="fade-up" data-aos-delay="300" >
                   @csrf
 
                   <!-- Informations de l’élève -->
@@ -143,8 +142,17 @@
                               <div class="text-danger">{{$message}}</div>
                               @enderror
                           </div>
+
                       </div>
                   </div>
+                  <!--  Photo -->
+                  <div class="form-group">
+                        <label for="document_path">Sélectionner l'image</label>
+                        <input type="file" name="document_path" id="document_path" class="form-control" required>
+                        @error('document_path')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                   <!-- Informations d’inscription -->
                   <h3>Informations d’inscription</h3>

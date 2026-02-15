@@ -1,382 +1,121 @@
-@extends('pagePrincipale')
+@extends('layouts.app')
 @section('contenu')
 
-<!-- Page Title -->
 @section('PageTitle')
   <li class="current">Instructors</li>
 @endsection
 
-<!-- End Page Title -->
-<a href="{{route('profs.create')}}">ajouter un prof</a>
-  <main class="main">
 
-    
 
-    <!-- Instructors Section -->
-    <section id="instructors" class="instructors section">
-      
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        
-        <div class="row gy-4">
+<main class="main">
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-2.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>4.8</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>18 Courses</span>
-                  </div>
-                </div>
+<section id="instructors" class="instructors section">
+  
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+            <a  class="btn btn-primary" href="{{ route('profs.create') }}">ajouter un prof</a>
+    <div class="row gy-4">
+
+      @forelse($profs as $prof)
+
+      <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
+        <div class="instructor-card">
+
+          <div class="instructor-image">
+            <img src="{{ asset('assets/img/education/teacher-2.webp') }}" class="img-fluid" alt="">
+            
+            <div class="overlay-content">
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span>5.0</span>
               </div>
-              <div class="instructor-info">
-                <h5>Sarah Johnson</h5>
-                <p class="specialty">Web Development</p>
-                <p class="description">Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">2.1k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.8</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-twitter"></i></a>
-                  </div>
-                </div>
+
+              <div class="course-count">
+                <i class="bi bi-play-circle"></i>
+                <span>
+                  {{ $prof->cours()->count() }} Courses
+                </span>
               </div>
             </div>
           </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-7.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <span>4.9</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>24 Courses</span>
-                  </div>
-                </div>
-              </div>
-              <div class="instructor-info">
-                <h5>Michael Chen</h5>
-                <p class="specialty">Data Science</p>
-                <p class="description">Suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">3.5k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.9</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-github"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="instructor-info">
+            <h5>{{ $prof->nom }} {{ $prof->prenom }}</h5>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-4.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                    <span>4.6</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>15 Courses</span>
-                  </div>
-                </div>
-              </div>
-              <div class="instructor-info">
-                <h5>Amanda Rodriguez</h5>
-                <p class="specialty">UX Design</p>
-                <p class="description">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">1.8k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.6</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-dribbble"></i></a>
-                    <a href="#"><i class="bi bi-behance"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <p class="specialty">
+              {{ $prof->email }}
+            </p>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-9.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>4.7</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>21 Courses</span>
-                  </div>
-                </div>
-              </div>
-              <div class="instructor-info">
-                <h5>David Thompson</h5>
-                <p class="specialty">Digital Marketing</p>
-                <p class="description">Vivamus magna justo lacinia eget consectetur sed convallis at tellus curabitur non nulla.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">2.9k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.7</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <p class="description">
+              {{ $prof->adresse ?? 'Adresse non définie' }}
+            </p>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-6.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <span>5.0</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>12 Courses</span>
-                  </div>
-                </div>
+            <div class="stats-grid">
+              <div class="stat">
+                <span class="number">
+                  {{ $prof->telephone }}
+                </span>
+                <span class="label">Téléphone</span>
               </div>
-              <div class="instructor-info">
-                <h5>Lisa Williams</h5>
-                <p class="specialty">Business Analytics</p>
-                <p class="description">Mauris blandit aliquet elit eget tincidunt nibh pulvinar a proin gravida hendrerit lectus.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">4.2k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">5.0</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="450">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-1.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                    <span>4.5</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>16 Courses</span>
-                  </div>
-                </div>
-              </div>
-              <div class="instructor-info">
-                <h5>James Anderson</h5>
-                <p class="specialty">Machine Learning</p>
-                <p class="description">Donec rutrum congue leo eget malesuada vestibulum ac diam sit amet quam vehicula elementum.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">3.1k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.5</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-github"></i></a>
-                    <a href="#"><i class="bi bi-twitter"></i></a>
-                  </div>
-                </div>
+              <div class="stat">
+                <span class="number">
+                  {{ $prof->cours()->count() }}
+                </span>
+                <span class="label">Cours</span>
               </div>
             </div>
-          </div>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-8.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>4.8</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>19 Courses</span>
-                  </div>
-                </div>
-              </div>
-              <div class="instructor-info">
-                <h5>Rachel Martinez</h5>
-                <p class="specialty">Cybersecurity</p>
-                <p class="description">Sed porttitor lectus nibh cras ultricies ligula sed magna dictum porta lorem ipsum dolor.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">2.7k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.8</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-shield-check"></i></a>
-                  </div>
-                </div>
-              </div>
+            <div class="action-buttons">
+              
             </div>
-          </div>
+            <div class="action-buttons mt-2">
+                  <a class=" btn btn-success" href="{{route('profs.edit',$prof->id)}}">modifier</a>
+                  <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?');" class=" btn btn-danger" href="{{route('profs.destroy',$prof->id)}}">supperimer</a>
+                  <a class="btn btn-primary rounded-pill "href="{{route('profs.details',$prof->id)}}">DT</a>
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="550">
-            <div class="instructor-card">
-              <div class="instructor-image">
-                <img src="assets/img/education/teacher-10.webp" class="img-fluid" alt="">
-                <div class="overlay-content">
-                  <div class="rating-stars">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <span>4.9</span>
-                  </div>
-                  <div class="course-count">
-                    <i class="bi bi-play-circle"></i>
-                    <span>22 Courses</span>
-                  </div>
                 </div>
-              </div>
-              <div class="instructor-info">
-                <h5>Kevin Taylor</h5>
-                <p class="specialty">Cloud Computing</p>
-                <p class="description">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
-                <div class="stats-grid">
-                  <div class="stat">
-                    <span class="number">3.8k</span>
-                    <span class="label">Students</span>
-                  </div>
-                  <div class="stat">
-                    <span class="number">4.9</span>
-                    <span class="label">Rating</span>
-                  </div>
-                </div>
-                <div class="action-buttons">
-                  <a href="#" class="btn-view">View Profile</a>
-                  <div class="social-links">
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-cloud"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>
-
       </div>
 
-    </section><!-- /Instructors Section -->
+      @empty
+        <div class="col-12">
+          <div class="alert alert-warning text-center">
+            Aucun professeur disponible.
+          </div>
+        </div>
+      @endforelse
 
-  </main>
+    </div>
 
-  @endsection
+    {{-- Pagination --}}
+    <div class="d-flex justify-content-center mt-4">
+      
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+@endsection

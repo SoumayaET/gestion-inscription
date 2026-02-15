@@ -1,4 +1,4 @@
-@extends('pagePrincipale')
+ @extends('layouts.app')
 @section('contenu')
 
 @section('PageTitle')
@@ -73,8 +73,9 @@
                 </div>
 
                 <div class="action-buttons mt-2">
-                  <a class="btn-view">modifier</a>
-                  <a class="btn-view">supperimer</a>
+                  <a class=" btn btn-success" href="{{route('etudiants.edit',$etudiant->id)}}">modifier</a>
+                  <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet etudiant ?');" class=" btn btn-danger" href="{{route('etudiants.destroy',$etudiant->id)}}">supperimer</a>
+                  <a class="btn btn-primary rounded-pill "href="{{route('etudiants.details',$etudiant->id)}}">DT</a>
                 </div>
               </form>
             </div>

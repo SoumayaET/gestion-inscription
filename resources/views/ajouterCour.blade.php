@@ -1,4 +1,4 @@
-@extends('pagePrincipale')
+@extends('layouts.app')
 @section('contenu')
 
 <!-- Page Title -->
@@ -29,212 +29,132 @@
             <div class="enrollment-form-wrapper">
 
               <div class="enrollment-header text-center mb-5" data-aos="fade-up" data-aos-delay="200">
-                <h2>Enroll in Your Dream Course</h2>
-                <p>Take the next step in your educational journey. Complete the form below to secure your spot in our comprehensive online learning program.</p>
+                <h2>Ajouter un nouveau cours</h2>
+                <p>Remplissez le formulaire ci-dessous pour créer et enregistrer un nouveau cours dans le système.
+</p>
               </div>
 
-              <form class="enrollment-form" action="{{route('etudians.store')}}" method="POST" action="#" data-aos="fade-up" data-aos-delay="300" >
-                  @csrf
+              <form class="enrollment-form" action="{{ route('cours.store') }}" method="POST" data-aos="fade-up" data-aos-delay="300">
+    @csrf
 
-                  <!-- Informations de l’élève -->
-                  <h3>Informations de l’élève</h3>
-                  <div class="row mb-4">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="nom" class="form-label">Nom *</label>
-                              <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" value="{{old('nom')}}" >
-                              @error('nom')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="prenom" class="form-label">Prénom *</label>
-                              <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Prénom" value="{{old('prenom')}}"  >
-                              @error('prenom')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
+    <h3>Informations du cours</h3>
 
-                  <div class="row mb-4">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="date_naissance" class="form-label">Date de naissance *</label>
-                              <input type="date" id="date_naissance" name="date_naissance" class="form-control"  value="{{old('date_naissance')}}">
-                              @error('date_naissance')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="sexe" class="form-label">Sexe *</label>
-                              <select id="sexe" name="sexe" class="form-select"  value="{{old('sexe')}}" >
-                                  <option value="">Sélectionner</option>
-                                  <option value="Masculin">Masculin</option>
-                                  <option value="Féminin">Féminin</option>
-                              </select>
-                              @error('sexe')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
+    <!-- Titre -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="titre" class="form-label">Titre du cours *</label>
+                <input type="text" id="titre" name="titre" class="form-control"
+                       value="{{ old('titre') }}" placeholder="Titre du cours">
+                @error('titre')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
 
-                  <div class="row mb-4">
-                      <div class="col-12">
-                          <div class="form-group">
-                              <label for="niveau" class="form-label">Niveau scolaire *</label>
-                              <select id="niveau" name="niveau" class="form-select" value="{{old('niveau')}}" >
-                                  <option value="">Sélectionner</option>
-                                  <option value="Maternelle">Maternelle</option>
-                                  <option value="Primaire">Primaire</option>
-                                  <option value="Collège">Collège</option>
-                                  <option value="Lycée">Lycée</option>
-                              </select>
-                              @error('niveau')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
+    <!-- Niveau -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="niveau" class="form-label">Niveau *</label>
+                <select id="niveau" name="niveau" class="form-select">
+                    <option value="">Sélectionner</option>
+                    <option value="Maternelle" {{ old('niveau')=='Maternelle' ? 'selected' : '' }}>Maternelle</option>
+                    <option value="Primaire" {{ old('niveau')=='Primaire' ? 'selected' : '' }}>Primaire</option>
+                    <option value="Collège" {{ old('niveau')=='Collège' ? 'selected' : '' }}>Collège</option>
+                    <option value="Lycée" {{ old('niveau')=='Lycée' ? 'selected' : '' }}>Lycée</option>
+                </select>
+                @error('niveau')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
 
-                  <!-- Informations du parent -->
-                  <h3>Informations du parent</h3>
-                  <div class="row mb-4">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="parent_nom" class="form-label">Nom du parent *</label>
-                              <input type="text" id="parent_nom" name="parent_nom" class="form-control" placeholder="Nom du parent" value="{{old('parent_nom')}}" >
-                              @error('parent_nom')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="telephone" class="form-label">Téléphone *</label>
-                              <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="Téléphone" value="{{old('telephone')}}" >
-                              @error('telephone')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
+    <!-- Prof -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="prof_id" class="form-label">Professeur *</label>
+                <select id="prof_id" name="prof_id" class="form-select">
+                <option value="">Sélectionner</option>
 
-                  <div class="row mb-4">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="email" class="form-label">Email</label>
-                              <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{old('email')}}" >
-                              @error('email')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="adresse" class="form-label">Adresse</label>
-                              <textarea id="adresse" name="adresse" class="form-control" placeholder="Adresse" value="{{old('adresse')}}"></textarea>
-                              @error('adresse')
-                              <div class="text-danger">{{$message}}</div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
+                @isset($profs)
+                    @if(!$profs->isEmpty())
+                        @foreach($profs as $prof)
+                            <option value="{{ $prof->id }}"
+                                {{ old('prof_id') == $prof->id ? 'selected' : '' }}>
+                                {{ $prof->nom }}{{ $prof->prenom }}
+                            </option>
+                        @endforeach
+                    @else
+                        <option value="">Aucun professeur disponible</option>
+                    @endif
+                @endisset
 
-                  <!-- Informations d’inscription -->
-                  <h3>Informations d’inscription</h3>
-                  <div class="row mb-4">
-                      <div class="col-12">
-                          <div class="form-group">
-                              <label for="annee_scolaire" class="form-label">Année scolaire</label>
-                              <input type="text" id="annee_scolaire" name="annee_scolaire" class="form-control" value="2024/2025" readonly value="{{old('annee_scolaire')}}">
-                          </div>
-                      </div>
-                  </div>
+            </select>
+                @error('prof_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
 
-                  <div class="row">
-                      <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-enroll">
-                              <i class="bi bi-check-circle me-2"></i>
-                              S’inscrire
-                          </button>
-                      </div>
-                  </div>
-              </form>
+    <!-- Dates -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="date_debut" class="form-label">Date début *</label>
+                <input type="date" id="date_debut" name="date_debut" class="form-control"
+                       value="{{ old('date_debut') }}">
+                @error('date_debut')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="date_fin" class="form-label">Date fin *</label>
+                <input type="date" id="date_fin" name="date_fin" class="form-control"
+                       value="{{ old('date_fin') }}">
+                @error('date_fin')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+
+    <!-- Salle -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="salle" class="form-label">Salle *</label>
+                <input type="text" id="salle" name="salle" class="form-control"
+                       value="{{ old('salle') }}" placeholder="Salle">
+                @error('salle')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-enroll">
+                <i class="bi bi-check-circle me-2"></i>
+                Enregistrer le cours
+            </button>
+        </div>
+    </div>
+</form>
 
 
             </div>
           </div><!-- End Form Column -->
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <div class="enrollment-benefits" data-aos="fade-left" data-aos-delay="400">
-              <h3>Why Choose Our Courses?</h3>
-              <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-trophy"></i>
-                </div>
-                <div class="benefit-content">
-                  <h4>Expert Instructors</h4>
-                  <p>Learn from industry professionals with years of real-world experience</p>
-                </div>
-              </div><!-- End Benefit Item -->
-
-              <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-clock"></i>
-                </div>
-                <div class="benefit-content">
-                  <h4>Flexible Learning</h4>
-                  <p>Study at your own pace with 24/7 access to course materials</p>
-                </div>
-              </div><!-- End Benefit Item -->
-
-              <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-award"></i>
-                </div>
-                <div class="benefit-content">
-                  <h4>Certification</h4>
-                  <p>Earn industry-recognized certificates upon course completion</p>
-                </div>
-              </div><!-- End Benefit Item -->
-
-              <div class="benefit-item">
-                <div class="benefit-icon">
-                  <i class="bi bi-people"></i>
-                </div>
-                <div class="benefit-content">
-                  <h4>Community Support</h4>
-                  <p>Connect with fellow students and get help when you need it</p>
-                </div>
-              </div><!-- End Benefit Item -->
-
-              <div class="enrollment-stats mt-4">
-                <div class="stat-item">
-                  <span class="stat-number">15,000+</span>
-                  <span class="stat-label">Students Enrolled</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">98%</span>
-                  <span class="stat-label">Completion Rate</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-number">4.9/5</span>
-                  <span class="stat-label">Average Rating</span>
-                </div>
-              </div><!-- End Stats -->
-
-            </div>
-          </div><!-- End Benefits Column -->
-
-        </div>
-
-      </div>
 
     </section><!-- /Enroll Section -->
 

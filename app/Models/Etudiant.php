@@ -18,11 +18,21 @@ class Etudiant extends Model
         'prenom',
         'date_naissance',
         'sexe',
-        'cour',
+        'niveau',
+        'parent_nom',
         'telephone',
         'email',
         'adresse',
         'annee_scolaire',
-        
+        'document_path',
+        'user_id' // ✅ أضفنا هذا الحقل
     ];
+
+    // العلاقة مع جدول users
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
 }

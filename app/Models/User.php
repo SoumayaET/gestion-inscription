@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // أضفنا العمود role هنا
     ];
 
     /**
@@ -45,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function etudiants()
+{
+    return $this->hasMany(Etudiant::class, 'user_id');
+}
+
 }

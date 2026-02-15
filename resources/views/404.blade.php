@@ -1,4 +1,4 @@
-@extends('pagePrincipale')
+@extends('layouts.app')
 
 <!-- Page Title -->
 @section('PageTitle')
@@ -30,7 +30,7 @@
               <div class="error-content">
                 <span class="error-badge" data-aos="zoom-in" data-aos-delay="400">Error</span>
                 <h1 class="error-code" data-aos="fade-up" data-aos-delay="500">404</h1>
-                <h2 class="error-title" data-aos="fade-up" data-aos-delay="600">Page Not Found</h2>
+                  <h2 class="error-title" data-aos="fade-up" data-aos-delay="600">Page Not Found</h2>
                 <p class="error-description" data-aos="fade-up" data-aos-delay="700">
                   The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
                 </p>

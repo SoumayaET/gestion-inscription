@@ -1,4 +1,4 @@
-@extends('pagePrincipale')
+@extends('layouts.app')
 <!-- Page Title -->
 @section('PageTitle')
   <li class="current">About</li>

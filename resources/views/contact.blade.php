@@ -1,4 +1,4 @@
-@extends('pagePrincipale')
+@extends('layouts.app')
 @section('contenu')
 
 <!-- Page Title -->

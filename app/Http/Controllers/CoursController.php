@@ -3,76 +3,119 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCourValidationReques;
+use App\Http\Requests\CreateCourValidationRequest;
 use App\Models\Cour;
-
+use App\Models\Prof;
 use Illuminate\Http\Request;
 
 class CoursController extends Controller
 {
-    public function index(){
-        // $data = Cour::all();
-        // return view('cours', ['data'=>$data]);
-        return view('cours');
+    // عرض جميع الدروس
+    public function index()
+    {
+        $cours = Cour::with('prof')->get();
+        // جلب الدروس مع الأستاذ المرتبط
+        return view('cours', ['cours' => $cours]);
     }
-    public function create(){
-        
-        return view('ajouterCour');
+
+    // صفحة إضافة درس جديد
+    public function create()
+    {
+        $profs = Prof::all();
+        return view('ajouterCour' ,['profs' => $profs] );
     }
+
+    // تخزين درس جديد
     public function store(CreateCourValidationReques $request)
-    
-{
-    $exists = Cour::where('nom', $request->nom)
-        ->where('prenom', $request->prenom)
-        ->where('date_naissance', $request->date_naissance)
-        ->where('sexe', $request->sexe)
+    {
+        // التحقق من البيانات القادمة من الفورم
+        $exists = Cour::where('titre', $request->titre)
         ->where('niveau', $request->niveau)
-        ->where('parent_nom', $request->parent_nom)
-        ->where('telephone', $request->telephone)
+        ->where('prof_id', $request->prof_id)
+        ->where('date_debut', $request->date_debut)
+        ->where('date_fin', $request->date_fin)
+        ->where('salle', $request->salle)
         ->exists();
 
     if ($exists) {
         // إعادة الصفحة مع رسالة خطأ
-        return redirect()->back()->with('error', 'Un étudiant avec ces informations existe déjà !');
+        return redirect()->back()->with('error', 'Un cour avec ces informations existe déjà !');
     }
-    // نأخذ البيانات validated من الـ FormRequest
-    $data = $request->validated();
-
-    // إنشاء نموذج جديد
-    $cour = new Cour();
     
-    // Informations de l’élève
-    $cour->nom            = $data['nom'];
-    $cour->prenom         = $data['prenom'];
-    $cour->date_naissance = $data['date_naissance'];
-    $cour->sexe           = $data['sexe'];
-    $cour->niveau         = $data['niveau'];
 
-    // Informations du parent
-    $cour->parent_nom     = $data['parent_nom'];
-    $cour->telephone      = $data['telephone'];
-    $cour->email          = $data['email'] ?? null;
-    $cour->adresse        = $data['adresse'] ?? null;
+    
 
-    // Informations d’inscription
-    $cour->annee_scolaire = $data['annee_scolaire'];
+        // إنشاء درس جديد
+        $cour = new Cour();
+       $cour->titre      = $request->titre;
+    $cour->niveau     = $request->niveau;
+    $cour->prof_id    = $request->prof_id;
+    $cour->date_debut = $request->date_debut;
+    $cour->date_fin   = $request->date_fin;
+    $cour->salle      = $request->salle;
+   
 
-    // Gestion ducdocument/photo
-    if ($request->hasFile('document')) {
-        $file = $request->file('document');
-        $filename = time().'_'.$file->getClientOriginalName();
-        $path = $file->storeAs('documents', $filename, 'public');
-        $cour->document_path = $path;
+        $cour->save();
+
+
+        return back()->with('success', 'Cours ajouté avec succès !');
     }
 
-    // Sauvegarder l'étudiant
-    $cour->save();
+    // تعديل درس
+    public function edit($id)
+{
+    $cour = Cour::with('prof')->find($id);
 
-    // Redirection avec message de succès
-    return back()->with('success', 'Étudiant ajouté avec succès !');
+    if (!$cour) {
+        return redirect()->route('cours.index')
+            ->with('error', 'Cours introuvable.');
+    }
+
+    $profs = Prof::all(); // لجلب قائمة الأساتذة للاختيار
+
+    return view('modifierCour', compact('cour', 'profs'));
 }
-    public function edit(){
-        
-        return view('enroll');
+
+    // تحديث درس
+   public function update($id,CreateCourValidationReques $request)
+    {
+        $cour = Cour::find($id);
+        if (!$cour) {
+            return redirect()->route('cours.index')->with('error', 'Cours introuvable.');
+        }
+
+        $cour->update($request->validated());
+
+        return redirect()->route('cours.index')->with('success', 'Cours modifié avec succès !');
     }
-    
+
+
+    // حذف درس
+    public function destroy($id)
+{
+    $dataCour = Cour::find($id);
+
+    if (!$dataCour) {
+        return redirect()->route('etudiants.index')
+            ->with('error', 'Étudiant introuvable.');
+    }
+
+    $dataCour->delete();
+
+    return redirect()->route('profs.index')
+        ->with('success', 'Professeur supprimé avec succès !');
+}
+    public function details($id)
+    {
+        $cours = Cour::find($id);
+
+        if (!$cours) {
+            return redirect()->route('cours.index')
+                ->with('error', 'Cours introuvable.');
+        }
+
+         // لجلب قائمة الأساتذة للاختيار
+
+        return view('coursDetails',['cours' =>$cours]);
+    }
 }

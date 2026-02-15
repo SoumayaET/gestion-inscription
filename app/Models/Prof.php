@@ -15,14 +15,16 @@ class Prof extends Model
     // الحقول القابلة للتعبئة
     protected $fillable = [
         'nom',
-        'prenom',
-        'date_naissance',
-        'sexe',
-        'cour',
-        'telephone',
-        'email',
-        'adresse',
-        'annee_scolaire',
-        
+    'prenom',
+    'telephone',
+    'email',
+    'adresse',
+    'cours_id',
     ];
+
+    // علاقة: الأستاذ لديه عدة دروس
+    public function cours()
+    {
+        return $this->hasMany(Cour::class, 'prof_id');
+    }
 }
