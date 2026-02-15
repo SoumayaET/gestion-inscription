@@ -102,7 +102,7 @@ class CoursController extends Controller
 
     $dataCour->delete();
 
-    return redirect()->route('profs.index')
+    return redirect()->route('cours.index')
         ->with('success', 'Professeur supprimé avec succès !');
 }
     public function details($id)

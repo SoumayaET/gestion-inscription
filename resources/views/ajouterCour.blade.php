@@ -1,9 +1,10 @@
+```php
 @extends('layouts.app')
 @section('contenu')
 
 <!-- Page Title -->
 @section('PageTitle')
-  <li class="current">Enroll</li>
+  <li class="current">Inscription</li>
 @endsection
 <!-- End Page Title -->
 
@@ -30,8 +31,7 @@
 
               <div class="enrollment-header text-center mb-5" data-aos="fade-up" data-aos-delay="200">
                 <h2>Ajouter un nouveau cours</h2>
-                <p>Remplissez le formulaire ci-dessous pour créer et enregistrer un nouveau cours dans le système.
-</p>
+                <p>Remplissez le formulaire ci-dessous pour créer et enregistrer un nouveau cours dans le système.</p>
               </div>
 
               <form class="enrollment-form" action="{{ route('cours.store') }}" method="POST" data-aos="fade-up" data-aos-delay="300">
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <!-- Prof -->
+    <!-- Professeur -->
     <div class="row mb-4">
         <div class="col-md-12">
             <div class="form-group">
@@ -85,7 +85,7 @@
                         @foreach($profs as $prof)
                             <option value="{{ $prof->id }}"
                                 {{ old('prof_id') == $prof->id ? 'selected' : '' }}>
-                                {{ $prof->nom }}{{ $prof->prenom }}
+                                {{ $prof->nom }} {{ $prof->prenom }}
                             </option>
                         @endforeach
                     @else
@@ -105,7 +105,7 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date_debut" class="form-label">Date début *</label>
+                <label for="date_debut" class="form-label">Date de début *</label>
                 <input type="date" id="date_debut" name="date_debut" class="form-control"
                        value="{{ old('date_debut') }}">
                 @error('date_debut')
@@ -116,7 +116,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date_fin" class="form-label">Date fin *</label>
+                <label for="date_fin" class="form-label">Date de fin *</label>
                 <input type="date" id="date_fin" name="date_fin" class="form-control"
                        value="{{ old('date_fin') }}">
                 @error('date_fin')
@@ -151,13 +151,12 @@
     </div>
 </form>
 
-
             </div>
           </div><!-- End Form Column -->
-
 
     </section><!-- /Enroll Section -->
 
   </main>
 
-  @endsection
+@endsection
+```

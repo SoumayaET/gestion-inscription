@@ -1,7 +1,8 @@
+```blade
 @extends('layouts.app')
 
 @section('PageTitle')
-  <li class="current">Détails Étudiant</li>
+  <li class="current">Détails de l’étudiant</li>
 @endsection
 
 @section('contenu')
@@ -24,7 +25,7 @@
 
             <div class="instructor-avatar">
               @if($etudiant->document_path)
-               <img src="{{ asset('storage/' . $etudiant->document_path) }}" alt="Photo de l'étudiant">
+               <img src="{{ asset('storage/' . $etudiant->document_path) }}" alt="Photo de l’étudiant">
             @else
                 <img src="{{ asset('assets/img/default-avatar.webp') }}" 
                     alt="Avatar" class="img-fluid">
@@ -45,7 +46,7 @@
                 </span>
 
                 <span class="credential">
-                  Date naissance : {{ $etudiant->date_naissance }}
+                  Date de naissance : {{ $etudiant->date_naissance }}
                 </span>
               </div>
 
@@ -177,3 +178,4 @@
 </main>
 
 @endsection
+```

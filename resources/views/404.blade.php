@@ -28,28 +28,28 @@
             </div>
             <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
               <div class="error-content">
-                <span class="error-badge" data-aos="zoom-in" data-aos-delay="400">Error</span>
+                <span class="error-badge" data-aos="zoom-in" data-aos-delay="400">Erreur</span>
                 <h1 class="error-code" data-aos="fade-up" data-aos-delay="500">404</h1>
-                  <h2 class="error-title" data-aos="fade-up" data-aos-delay="600">Page Not Found</h2>
+                <h2 class="error-title" data-aos="fade-up" data-aos-delay="600">Page non trouvée</h2>
                 <p class="error-description" data-aos="fade-up" data-aos-delay="700">
-                  The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+                  La page que vous recherchez a peut-être été supprimée, son nom a été modifié ou elle est temporairement indisponible.
                 </p>
 
                 <div class="error-actions" data-aos="fade-up" data-aos-delay="800">
                   <a href="/" class="btn-home">
-                    <i class="bi bi-house-door"></i> Back to Home
+                    <i class="bi bi-house-door"></i> Retour à l'accueil
                   </a>
                   <a href="#" class="btn-help">
-                    <i class="bi bi-question-circle"></i> Help Center
+                    <i class="bi bi-question-circle"></i> Centre d'aide
                   </a>
                 </div>
 
                 <div class="error-suggestions" data-aos="fade-up" data-aos-delay="900">
-                  <h3>You might want to:</h3>
+                  <h3>Vous pourriez :</h3>
                   <ul>
-                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Check our sitemap</a></li>
-                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Contact support</a></li>
-                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Return to previous page</a></li>
+                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Consulter notre plan du site</a></li>
+                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Contacter le support</a></li>
+                    <li><a href="#"><i class="bi bi-arrow-right-circle"></i> Retourner à la page précédente</a></li>
                   </ul>
                 </div>
               </div>
@@ -71,7 +71,7 @@
           <a href="index.html" class="logo d-flex align-items-center">
             <span class="sitename">Learner</span>
           </a>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          <p>Ce texte est un exemple descriptif. Vous pouvez le remplacer par une description réelle de votre plateforme ou de votre établissement.</p>
           <div class="social-links d-flex mt-4">
             <a href=""><i class="bi bi-twitter-x"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
@@ -81,46 +81,42 @@
         </div>
 
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+          <h4>Liens utiles</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">À propos</a></li>
             <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
+          <h4>Nos services</h4>
           <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Conception Web</a></li>
+            <li><a href="#">Développement Web</a></li>
+            <li><a href="#">Gestion de produits</a></li>
             <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
+            <li><a href="#">Design graphique</a></li>
           </ul>
         </div>
 
         <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Us</h4>
+          <h4>Contactez-nous</h4>
           <p>A108 Adam Street</p>
           <p>New York, NY 535022</p>
-          <p>United States</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
+          <p>États-Unis</p>
+          <p class="mt-4"><strong>Téléphone :</strong> <span>+1 5589 55488 55</span></p>
+          <p><strong>Email :</strong> <span>info@example.com</span></p>
         </div>
 
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Learner</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Droits d'auteur</span> <strong class="px-1 sitename">Learner</strong> <span>Tous droits réservés</span></p>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>

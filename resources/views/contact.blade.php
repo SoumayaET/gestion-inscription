@@ -1,3 +1,4 @@
+```php
 @extends('layouts.app')
 @section('contenu')
 
@@ -6,7 +7,6 @@
   <li class="current">Contact</li>
 @endsection
 <!-- End Page Title -->
-
 
   <main class="main">
 
@@ -26,7 +26,7 @@
                   <i class="bi bi-geo-alt"></i>
                 </div>
                 <div class="contact-text">
-                  <h4>Location</h4>
+                  <h4>Adresse</h4>
                   <p>8721 Broadway Avenue, New York, NY 10023</p>
                 </div>
               </div>
@@ -46,7 +46,7 @@
                   <i class="bi bi-telephone"></i>
                 </div>
                 <div class="contact-text">
-                  <h4>Call</h4>
+                  <h4>Téléphone</h4>
                   <p>+1 (212) 555-7890</p>
                 </div>
               </div>
@@ -56,40 +56,40 @@
                   <i class="bi bi-clock"></i>
                 </div>
                 <div class="contact-text">
-                  <h4>Open Hours</h4>
-                  <p>Monday-Friday: 9AM - 6PM</p>
+                  <h4>Heures d'ouverture</h4>
+                  <p>Lundi - Vendredi : 9h00 - 18h00</p>
                 </div>
               </div>
             </div>
 
             <div class="contact-form-container" data-aos="fade-up" data-aos-delay="400">
-              <h3>Get in Touch</h3>
+              <h3>Entrer en contact</h3>
               <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua consectetur adipiscing.</p>
 
               <form action="forms/contact.php" method="post" class="php-email-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Votre nom" required="">
                   </div>
                   <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Votre email" required="">
                   </div>
                 </div>
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required="">
                 </div>
                 <div class="form-group mt-3">
                   <textarea class="form-control" name="message" rows="5" placeholder="Message" required=""></textarea>
                 </div>
 
                 <div class="my-3">
-                  <div class="loading">Loading</div>
+                  <div class="loading">Chargement</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  <div class="sent-message">Votre message a été envoyé. Merci !</div>
                 </div>
 
                 <div class="form-submit">
-                  <button type="submit">Send Message</button>
+                  <button type="submit">Envoyer le message</button>
                   <div class="social-links">
                     <a href="#"><i class="bi bi-twitter"></i></a>
                     <a href="#"><i class="bi bi-facebook"></i></a>
@@ -106,4 +106,5 @@
 
   </main>
 
-  @endsection
+@endsection
+```

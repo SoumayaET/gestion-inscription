@@ -74,7 +74,6 @@ class EtudiantsController extends Controller
         // يخزن في storage/app/public/etudiants
         $file->storeAs('etudiants', $filename, 'public');
 
-        // حفظ المسار النسبي في DB
         $etudiant->document_path = 'etudiants/' . $filename;
     }
 
@@ -113,10 +112,8 @@ class EtudiantsController extends Controller
             ->with('error', 'Étudiant introuvable.');
     }
 
-    // نأخذ البيانات validated
     $data = $request->validated();
 
-    // إذا لم يتم إرسال annee_scolaire نحافظ على القديمة
     if (!isset($data['annee_scolaire'])) {
         $data['annee_scolaire'] = $etudiant->annee_scolaire;
     }
@@ -142,7 +139,6 @@ public function destroy($id)
 }
     public function details($id)
 {
-    // جلب الطالب المرتبط بالمستخدم الحالي
     $etudiant = Etudiant::where('user_id', $id)->first();
 
     if (!$etudiant) {

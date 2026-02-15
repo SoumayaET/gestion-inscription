@@ -2,7 +2,7 @@
 @section('contenu')
 
 @section('PageTitle')
-  <li class="current">Ajouter Professeur</li>
+  <li class="current">Ajouter un professeur</li>
 @endsection
 
 <main class="main">
@@ -80,9 +80,9 @@
               <div class="row mb-4">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">Adresse e-mail</label>
                     <input type="email" id="email" name="email" class="form-control"
-                           value="{{ old('email') }}" placeholder="Email">
+                           value="{{ old('email') }}" placeholder="Adresse e-mail">
                     @error('email')
                       <div class="text-danger">{{ $message }}</div>
                     @enderror

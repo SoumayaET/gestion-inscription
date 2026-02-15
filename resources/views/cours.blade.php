@@ -1,8 +1,9 @@
+```blade
 @extends('layouts.app')
 @section('contenu')
 
 @section('PageTitle')
-  <li class="current">Courses</li>
+  <li class="current">Cours</li>
 @endsection
 
 <main class="main">
@@ -45,12 +46,12 @@
 
                 <div class="course-image">
                   <img src="{{ asset('assets/img/education/courses-3.webp') }}" 
-                       alt="Course" class="img-fluid">
+                       alt="Cours" class="img-fluid">
 
                   @if($cour->niveau == 'Advanced')
-                    <div class="course-badge">Advanced</div>
+                    <div class="course-badge">Avancé</div>
                   @elseif($cour->niveau == 'Beginner')
-                    <div class="course-badge badge-free">Beginner</div>
+                    <div class="course-badge badge-free">Débutant</div>
                   @endif
                 </div>
 
@@ -94,16 +95,16 @@
                          class="instructor-avatar">
                     <span class="instructor-name">
                       @if($cour->prof)
-                      professeur : {{ $cour->prof->nom }} {{ $cour->prof->prenom }}
-                      @else prof non assigné
+                      Professeur : {{ $cour->prof->nom }} {{ $cour->prof->prenom }}
+                      @else Professeur non assigné
                       @endif
                     </span>
                   </div>
 
                   <div class="action-buttons mt-2">
-                  <a class="btn btn-success" href="{{route('cours.edit',$cour->id)}}">modifier</a>
-                  <a class=" btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?');" href="{{route('cours.destroy',$cour->id)}}">supperimer</a>
-                  <a class="btn btn-primary rounded-pill "href="{{route('cours.details',$cour->id)}}">DT</a>
+                  <a class="btn btn-success" href="{{route('cours.edit',$cour->id)}}">Modifier</a>
+                  <a class=" btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?');" href="{{route('cours.destroy',$cour->id)}}">Supprimer</a>
+                  <a class="btn btn-primary rounded-pill "href="{{route('cours.details',$cour->id)}}">Détails</a>
                 </div>
 
                 </div>
@@ -137,3 +138,4 @@
 </main>
 
 @endsection
+```

@@ -1,7 +1,8 @@
+```blade
 @extends('layouts.app')
 
 @section('PageTitle')
-  <li class="current">Enroll</li>
+  <li class="current">Inscription</li>
 @endsection
 
 @section('contenu')
@@ -28,8 +29,8 @@
             <div class="enrollment-form-wrapper">
 
               <div class="enrollment-header text-center mb-5" data-aos="fade-up" data-aos-delay="200">
-                <h2>Enroll in Your Dream Course</h2>
-                <p>Take the next step in your educational journey. Complete the form below to secure your spot in our comprehensive online learning program.</p>
+                <h2>Inscrivez-vous à votre cours idéal</h2>
+                <p>Faites le prochain pas dans votre parcours éducatif. Remplissez le formulaire ci-dessous pour réserver votre place dans notre programme d’apprentissage en ligne.</p>
               </div>
 
               <form class="enrollment-form" action="{{route('etudiants.store')}}" enctype="multipart/form-data" method="POST"  data-aos="fade-up" data-aos-delay="300" >
@@ -137,7 +138,7 @@
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="adresse" class="form-label">Adresse</label>
-                              <textarea id="adresse" name="adresse" class="form-control" placeholder="Adresse" value="{{old('adresse')}}"></textarea>
+                              <textarea id="adresse" name="adresse" class="form-control" placeholder="Adresse">{{old('adresse')}}</textarea>
                               @error('adresse')
                               <div class="text-danger">{{$message}}</div>
                               @enderror
@@ -181,14 +182,14 @@
 
           <div class="col-lg-4 d-none d-lg-block">
             <div class="enrollment-benefits" data-aos="fade-left" data-aos-delay="400">
-              <h3>Why Choose Our Courses?</h3>
+              <h3>Pourquoi choisir nos cours ?</h3>
               <div class="benefit-item">
                 <div class="benefit-icon">
                   <i class="bi bi-trophy"></i>
                 </div>
                 <div class="benefit-content">
-                  <h4>Expert Instructors</h4>
-                  <p>Learn from industry professionals with years of real-world experience</p>
+                  <h4>Formateurs experts</h4>
+                  <p>Apprenez auprès de professionnels du secteur avec des années d’expérience concrète</p>
                 </div>
               </div><!-- End Benefit Item -->
 
@@ -197,8 +198,8 @@
                   <i class="bi bi-clock"></i>
                 </div>
                 <div class="benefit-content">
-                  <h4>Flexible Learning</h4>
-                  <p>Study at your own pace with 24/7 access to course materials</p>
+                  <h4>Apprentissage flexible</h4>
+                  <p>Étudiez à votre rythme avec un accès aux supports de cours 24h/24 et 7j/7</p>
                 </div>
               </div><!-- End Benefit Item -->
 
@@ -208,7 +209,7 @@
                 </div>
                 <div class="benefit-content">
                   <h4>Certification</h4>
-                  <p>Earn industry-recognized certificates upon course completion</p>
+                  <p>Obtenez des certificats reconnus à la fin de la formation</p>
                 </div>
               </div><!-- End Benefit Item -->
 
@@ -217,23 +218,23 @@
                   <i class="bi bi-people"></i>
                 </div>
                 <div class="benefit-content">
-                  <h4>Community Support</h4>
-                  <p>Connect with fellow students and get help when you need it</p>
+                  <h4>Soutien communautaire</h4>
+                  <p>Échangez avec d’autres étudiants et obtenez de l’aide quand vous en avez besoin</p>
                 </div>
               </div><!-- End Benefit Item -->
 
               <div class="enrollment-stats mt-4">
                 <div class="stat-item">
                   <span class="stat-number">15,000+</span>
-                  <span class="stat-label">Students Enrolled</span>
+                  <span class="stat-label">Étudiants inscrits</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-number">98%</span>
-                  <span class="stat-label">Completion Rate</span>
+                  <span class="stat-label">Taux de réussite</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-number">4.9/5</span>
-                  <span class="stat-label">Average Rating</span>
+                  <span class="stat-label">Note moyenne</span>
                 </div>
               </div><!-- End Stats -->
 
@@ -248,4 +249,5 @@
 
   </main>
 
-  @endsection
+@endsection
+```
